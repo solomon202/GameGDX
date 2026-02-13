@@ -17,6 +17,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 //набор методов, которые класс должен реализоват
 public class Main implements ApplicationListener {
 	//картинки звуки квадрат картинки обьекты 
+	
+	//	//сначало все создали и потом все нарисовали 
+	
+	
     Texture backgroundTexture;
     Texture bucketTexture;
     Texture dropTexture;
@@ -34,11 +38,15 @@ public class Main implements ApplicationListener {
     @Override
     public void create() {
     	//Это позволяет загрузить ресурсы в память после запуска
+    	// уже имеющийся классы просто прописываешь свою ссылку 
         backgroundTexture = new Texture("background.png");
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
+        
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+        
+        
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(9, 7);
         bucketSprite = new Sprite(bucketTexture);
@@ -59,6 +67,7 @@ public class Main implements ApplicationListener {
 //render() выполняется 60 раз в секунду 
     @Override
     public void render() {
+    	//сначало все создали и потом все нарисовали 
         input();
         logic();
         draw();
@@ -111,14 +120,14 @@ public class Main implements ApplicationListener {
                 dropSound.play();
             }
         }
-
+//создать капли дождя вывереном тайменги 
         dropTimer += delta;
         if (dropTimer > 1f) {
             dropTimer = 0;
             createDroplet();
         }
     }
-
+//рисуем 
     private void draw() {
         ScreenUtils.clear(Color.BLACK);
         viewport.apply();
@@ -127,7 +136,7 @@ public class Main implements ApplicationListener {
 
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-
+//группа спрайтов 
         spriteBatch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight);
         bucketSprite.draw(spriteBatch);
 
@@ -137,7 +146,7 @@ public class Main implements ApplicationListener {
 
         spriteBatch.end();
     }
-
+//создать капли 
     private void createDroplet() {
         float dropWidth = 1;
         float dropHeight = 1;
