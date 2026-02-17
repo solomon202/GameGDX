@@ -24,6 +24,7 @@ public class Main implements ApplicationListener {
     Texture backgroundTexture;
     Texture bucketTexture;
     Texture dropTexture;
+    Texture bulletTexture;
     Sound dropSound;
     Music music;
     SpriteBatch spriteBatch;
@@ -32,6 +33,7 @@ public class Main implements ApplicationListener {
     Vector2 touchPos;
     Array<Sprite> dropSprites;
     float dropTimer;
+    float ballTimer;
     Rectangle bucketRectangle;
     Rectangle dropRectangle;
     //create() — вызывается один раз при создании приложения.
@@ -42,6 +44,7 @@ public class Main implements ApplicationListener {
         backgroundTexture = new Texture("background.png");
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
+        bulletTexture = new Texture("bullet.png");
         
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
@@ -125,7 +128,18 @@ public class Main implements ApplicationListener {
         if (dropTimer > 1f) {
             dropTimer = 0;
             createDroplet();
+           
         }
+        
+        
+        
+        ballTimer += delta;
+        if (ballTimer > 3f) {
+        	ballTimer= 0;
+           createBall();
+        
+    }
+        
     }
 //рисуем 
     private void draw() {
@@ -155,10 +169,34 @@ public class Main implements ApplicationListener {
 
         Sprite dropSprite = new Sprite(dropTexture);
         dropSprite.setSize(dropWidth, dropHeight);
+        
         dropSprite.setX(MathUtils.random(0f, worldWidth - dropWidth));
         dropSprite.setY(worldHeight);
         dropSprites.add(dropSprite);
     }
+  
+    
+    
+    //создать пулю 
+    private void createBall() {
+    	//размер пули 
+        float dropWidth = 1;
+        float dropHeight = 1;
+        // получить размер фоновой картинки
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+   
+    	//создаем спрайты пули
+        Sprite dropBall = new Sprite(bulletTexture);
+        //установить размер картинки 
+        dropBall.setSize(dropWidth, dropHeight);
+       //вылет пули  с какого места 
+
+       dropBall.setX(worldHeight);
+        
+        dropSprites.add(dropBall);
+    }
+
 
     @Override
     public void pause() {
