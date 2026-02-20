@@ -180,8 +180,8 @@ public class Main implements ApplicationListener {
     //создать пулю 
     private void createBall() {
     	//размер пули 
-        float dropWidth = 1;
-        float dropHeight = 1;
+        float dropWidth = -1;
+        float dropHeight = +1;
         // получить размер фоновой картинки
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
@@ -192,7 +192,7 @@ public class Main implements ApplicationListener {
         dropBall.setSize(dropWidth, dropHeight);
        //вылет пули  с какого места 
 
-       dropBall.setX(worldHeight);
+        dropBall.setX(worldHeight);
         
         dropSprites.add(dropBall);
     }
